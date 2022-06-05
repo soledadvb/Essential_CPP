@@ -4,7 +4,7 @@
 using namespace std;
 
 ofstream ofil("text_out1");
-vector<int> fibon_seq(int size);
+const vector<int> *fibon_seq(int size);
 void display(vector<int> vec)
 {
     for (int ix = 0; ix < vec.size(); ++ix)
@@ -45,24 +45,25 @@ void bubble_sort(vector<int> &vec)
             }
 }
 
-vector<int> fibon_seq(int size)
+const vector<int> *fibon_seq(int size)
 {
-    if (size <= 0 || size > 1024)
+    const int max_size = 1024;
+    static vector<int> elems;
+    if (size <= 0 || size > max_size)
     {
-        cerr << "Warning:fibon_seq(): "
-             << size << "not supported -- resetting to 8\n";
-        size = 8;
+        cerr << "fibon_seq() : oops: invalid size: "
+             << size << " -- can't fulfill request.\n";
+        return 0;
     }
 
-    vector<int> elems(size);
-    for (int ix = 0; ix < size; ++ix)
+    for (int ix = elems.size(); ix < size; ++ix)
     {
         if (ix == 0 || ix == 1)
             elems[ix] = 1;
         else
             elems[ix] = elems[ix - 1] + elems[ix - 2];
     }
-    return elems;
+    return &elems;
 }
 
 int main()
@@ -77,6 +78,9 @@ int main()
 
     cout << "vector after sort: ";
     display(vec);
-
-    display(fibon_seq(10));
+    
+    fibon_seq(6);
+    fibon_seq(8);
+    const vector<int> *elem = fibon_seq(2);
+    display(*elem);
 }
