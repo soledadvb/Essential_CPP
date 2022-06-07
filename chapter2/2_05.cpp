@@ -18,7 +18,7 @@ bool is_size_ok(int size)
 
 const vector<int> *fibon_seq(int size)
 {
-    const int max_size = 1024;
+    //const int max_size = 1024;
     static vector<int> elems;
 
     if (!is_size_ok(size))

@@ -33,6 +33,3 @@ bool fibon_elem(int pos, int & elem)
     }
     return true;
 }
-
-
-bool
